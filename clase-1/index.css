@@ -1,0 +1,52 @@
+/* Selector de tipo */
+label { 
+}
+
+/* Selector de clase */
+.name {
+
+}
+
+input {
+  border-radius: 8px;
+}
+
+.submit {
+  background: green;
+  padding: 6px;
+}
+
+.name:hover {
+
+}
+
+/* Selector de ID */
+#nombre {
+
+}
+
+.text {
+  font-weight: bold;
+}
+
+/* Selector universal */
+* {
+  font-family: sans-serif;
+}
+/* Selector atributo */
+[type="email"] {
+
+}
+/* Selector descendencia */
+fieldset > legend {
+
+}
+
+/* Selector combinados */
+label, input, h1 {
+
+}
+
+.container {
+  display: flex;
+}
