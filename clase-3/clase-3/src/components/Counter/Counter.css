@@ -1,0 +1,19 @@
+h1 {
+  color: #7373d8;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.button {
+  background: #66bb6a;
+  border-radius: 4px;
+  border: 0;
+  padding: 12px 24px;
+}
+
+.button:hover {
+  background: #388e3c;
+  cursor: pointer;
+}
