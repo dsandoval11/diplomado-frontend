@@ -1,12 +1,12 @@
 import './Cover.css';
 
-export const Cover = () => {
+export const Cover = ({img, book, author }) => {
+  
   return (
-    <>
-      <h2>Titulo del libro <span className="value">(Genero)</span></h2>
-      <h4>Autor del libro: <span className="value">Nombre</span></h4>
-      <h4>Editorial: <span className="value">Nombre</span></h4>
-      <h4>Año de publicaci: <span className="value">Nombre</span></h4>
-    </>
+    <div className="cover">
+      <img src={img} alt="" />
+      <span>{book}</span>
+      <span>{author}</span>
+    </div>
   )
 }

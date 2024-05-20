@@ -1,0 +1,26 @@
+:root {
+  font-family: sans-serif;
+}
+
+.value {
+  color: gray;
+}
+
+.container {
+  display: flex;
+  max-width: 620px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.cover {
+  flex: 1;
+}
+
+.info {
+  flex: 2;
+}
+
+.divider {
+  color: #BDD138;
+  border: 2px solid;
+}

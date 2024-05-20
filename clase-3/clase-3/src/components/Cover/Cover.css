@@ -1,7 +1,9 @@
-:root {
-  font-family: sans-serif;
-}
-
-.value {
-  color: gray;
+.cover {
+  border-radius: 4px;
+  border: 1px solid #7d7d7d;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 480px;
+  max-width: 200px;
 }
