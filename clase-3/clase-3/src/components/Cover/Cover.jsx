@@ -1,12 +1,12 @@
 import './Cover.css';
 
-export const Cover = ({img, book, author }) => {
-  
+export const Cover = ({info , onBookClick }) => {
+
   return (
-    <div className="cover">
-      <img src={img} alt="" />
-      <span>{book}</span>
-      <span>{author}</span>
+    <div className="cover" onClick={() => onBookClick(info.key)}>
+      <img src={info.img} alt="" />
+      <b>{info.book}</b>
+      <span className='author'>{info.author}</span>
     </div>
   )
 }
