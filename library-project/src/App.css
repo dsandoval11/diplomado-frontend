@@ -1,0 +1,11 @@
+:root {
+  font-family: sans-serif;
+}
+
+.book-list {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(5, 1fr);
+  place-items: center;
+}
