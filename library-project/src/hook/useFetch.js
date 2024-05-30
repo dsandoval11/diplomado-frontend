@@ -1,20 +1,38 @@
-import { useEffect, useState } from 'react';
-import { requestApi } from '../utils/requests';
+import { useState } from 'react';
+import { URL_API_USER } from '../utils/constants';
 
-export const useFetch = () => {
+export const useFetch = (path = '') => {
   const [state, setState] = useState({
-    data: {},
+    data: undefined,
+    error: undefined,
     loading: true
   });
 
-  useEffect(()=> {
-    requestApi().then((data) => {
+  const req = async ({
+    URL = URL_API_USER,
+    body,
+    method = 'GET'
+  }) => {
+    const resp = await fetch(URL + path, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...(body && { body: JSON.stringify(body) } )
+    })
+    const data = await resp.json();
+    if(resp.status >= 400) {
+      setState({
+        error: data,
+        loading: false
+      })
+    } else {
       setState({
         data,
         loading: false
       })
-    })
-  }, []);
+    }
+  }
 
-  return state;
+  return {...state, req};
 }

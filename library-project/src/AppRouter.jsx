@@ -3,11 +3,28 @@ import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
 
 export const AppRouter = () => {
+
+
+  const PrivateRoute = ({children}) => {
+    if(localStorage.getItem('jwt')) {
+      return <Routes>
+        { children }
+        <Route path='/*' element={ <Navigate to='home' /> }></Route>
+      </Routes>
+    } else {
+      return <Navigate to="login" />
+    }
+  }
+
+
   return (
     <Routes>
-      <Route path='/' element={<LoginPage />}></Route>
-      <Route path='/home' element={<HomePage />}></Route>
-      <Route path='/*' element={<Navigate to='/' />}></Route>
+      <Route path='/login' element={<LoginPage />}></Route>
+      <Route path='/*' element={
+        <PrivateRoute>
+          <Route path='/home' element={<HomePage />}></Route>
+        </PrivateRoute>
+      }></Route>
     </Routes>
   )
 }
