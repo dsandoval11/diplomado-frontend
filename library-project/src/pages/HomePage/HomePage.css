@@ -1,0 +1,10 @@
+:root {
+  font-family: sans-serif;
+  height: auto;
+}
+
+.book-list {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(5, 1fr);
+}
