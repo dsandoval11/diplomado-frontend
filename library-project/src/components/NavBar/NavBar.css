@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout{
+  align-self: center;
+  background: #0d6a6a;
+  border-radius: 4px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+}

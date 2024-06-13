@@ -1,2 +1,2 @@
-export const URL_API = 'https://openlibrary.org/people/mekBot/books/want-to-read.json';
-export const URL_API_USER = 'http://127.0.0.1:9001/api/';
+export const URL_API_BOOKS = import.meta.env.VITE_BOOKS_API;
+export const URL_API_USER = import.meta.env.VITE_USER_API;

@@ -11,13 +11,14 @@ export const useFetch = (path = '') => {
   const req = async ({
     URL = URL_API_USER,
     body,
-    method = 'GET'
+    method = 'GET',
+    headers 
   }) => {
     const resp = await fetch(URL + path, {
       method,
-      headers: {
+      headers: (headers || {
         'Content-Type': 'application/json',
-      },
+      }),
       ...(body && { body: JSON.stringify(body) } )
     })
     const data = await resp.json();
