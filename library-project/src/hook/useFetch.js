@@ -12,7 +12,7 @@ export const useFetch = (path = '') => {
     URL = URL_API_USER,
     body,
     method = 'GET',
-    headers 
+    headers
   }) => {
     const resp = await fetch(URL + path, {
       method,
