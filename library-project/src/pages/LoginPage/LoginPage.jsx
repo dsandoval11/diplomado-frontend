@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css'
+import './LoginPage.scss'
 import { useFetch } from '../../hook/useFetch';
+import Button from '@mui/material/Button';
 
 export const LoginPage = () => {
 
@@ -43,6 +44,7 @@ export const LoginPage = () => {
       { error && 'Error al iniciar' }
       { data && 'Iniciado correctamente' }
       <h4 className='title'>Iniciar sesion</h4>
+      
       <form className="form" onSubmit={handleSubmit}>
         <label className='form-label' htmlFor="">Email</label>
         <input
@@ -62,7 +64,7 @@ export const LoginPage = () => {
           value={form.password}
           onChange={handleInput}
         />
-        <button className="form-button" type="submit">Iniciar sesion</button>
+        <Button variant="contained" type="submit">Iniciar sesion</Button>
       </form>
     </div>
   )

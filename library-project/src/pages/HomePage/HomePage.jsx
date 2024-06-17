@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Cover } from '../../components/Cover/Cover';
 import Lottie from 'lottie-react';
 import './HomePage.css';
-import loadingAnimation from '../../assets/animations/loading.json'
+import loadingAnimation from '../../assets/animations/loading2.json'
 import { NavBar } from '../../components/NavBar';
 import { useNavigate } from 'react-router-dom';
 

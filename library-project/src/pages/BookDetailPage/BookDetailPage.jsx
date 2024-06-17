@@ -14,7 +14,6 @@ export const BookDetailPage = () => {
     })
   }, []);
 
-  console.log(data);
 
   return (
     <>
