@@ -14,22 +14,29 @@ export const useFetch = (path = '') => {
     method = 'GET',
     headers
   }) => {
-    const resp = await fetch(URL + path, {
-      method,
-      headers: (headers || {
-        'Content-Type': 'application/json',
-      }),
-      ...(body && { body: JSON.stringify(body) } )
-    })
-    const data = await resp.json();
-    if(resp.status >= 400) {
-      setState({
-        error: data,
-        loading: false
+    try {
+      const resp = await fetch(URL + path, {
+        method,
+        headers: (headers || {
+          'Content-Type': 'application/json',
+        }),
+        ...(body && { body: JSON.stringify(body) } )
       })
-    } else {
+      const data = await resp.json();
+      if(resp.status >= 400) {
+        setState({
+          error: data,
+          loading: false
+        })
+      } else {
+        setState({
+          data,
+          loading: false
+        })
+      }
+    } catch (error) {
       setState({
-        data,
+        error,
         loading: false
       })
     }

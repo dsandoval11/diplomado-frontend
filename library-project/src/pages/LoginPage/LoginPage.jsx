@@ -1,27 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.scss'
 import { useFetch } from '../../hook/useFetch';
 import Button from '@mui/material/Button';
+import { useForm } from "react-hook-form"
+import { Alert, Fab, TextField, Typography } from '@mui/material';
+import SunIcon from '@mui/icons-material/Brightness7';
+import MoonIcon from '@mui/icons-material/ModeNight';
+import { FORM_RULES } from '../../utils/formRules';
+import { ModeContext } from '../../context/ModeContext/ModeContext';
+import { Helmet } from 'react-helmet-async';
+import { t } from 'i18next';
 
 export const LoginPage = () => {
-
-  const { data, error, req } = useFetch('login');
-  const navigate = useNavigate()
-
-  const [form, setForm] = useState({
-    email: '',
-    password: ''
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    req({
-      body: form,
-      method: 'POST'
-    });
-
-  };
+  const { toggleMode, mode } = useContext(ModeContext);
+  const { data, error: errorReq, req } = useFetch('login');
+  const navigate = useNavigate();
+  const { register,
+    handleSubmit,
+    formState: { errors },
+ } = useForm();
 
   useEffect(()=> {
     if(data) {
@@ -30,42 +28,75 @@ export const LoginPage = () => {
     }
   }, [data, navigate]);
 
-  const handleInput = ({ target }) => {
-    setForm((form) => (
-      {
-        ...form,
-        [target.name]: target.value
-      }
-    ));
+  /**useEffect(()=> {
+    document.title = 'Library'
+  }, []);
+  */
+
+  const onSubmit = (form) => {
+    req({
+      body: form,
+      method: 'POST'
+    });
   }
 
   return (
     <div className="login-container">
-      { error && 'Error al iniciar' }
-      { data && 'Iniciado correctamente' }
-      <h4 className='title'>Iniciar sesion</h4>
-      
-      <form className="form" onSubmit={handleSubmit}>
-        <label className='form-label' htmlFor="">Email</label>
+      <Helmet>
+        <title>Library | Login</title>
+      </Helmet>
+      <Typography variant="h4" align="center" sx={{ pb: 2 }}>
+        Iniciar sesion
+      </Typography>
+
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          label="Email"
+          variant="outlined"
+          type="email"
+          sx={{ pb: 1 }}
+          {...register("email", FORM_RULES.EMAIL)}
+        />
+        <TextField
+          label={t('login-page.password')}
+          variant="outlined"
+          type="password"
+          sx={{ paddingBottom: 2 }}
+          {...register("password", FORM_RULES.PASSWORD)}
+        />
+        {/* <label className='form-label' htmlFor="">Email</label>
         <input
           className='form-input'
           type="email"
-          name="email"
-          id="email"
-          value={form.email}
-          onChange={handleInput}
-        />
-        <label className='form-label' htmlFor="">Contrasena</label>
+          {...register('email', FORM_RULES.EMAIL)}
+        /> */}
+        {/* <label className='form-label' htmlFor="password">Contrasena</label>
         <input
+          id='password'
           className='form-input'
           type="password"
-          name="password"
-          id="password"
-          value={form.password}
-          onChange={handleInput}
-        />
-        <Button variant="contained" type="submit">Iniciar sesion</Button>
+          {...register('password', FORM_RULES.PASSWORD)}
+        /> */}
+        <Button variant="contained" type="submit">
+          Iniciar sesion
+        </Button>
+        {(errors.email || errors.password) && (
+          <Alert severity="error">
+            {errors.email?.message || errors.password?.message}
+          </Alert>
+        )}
+        {errorReq && <Alert severity="error">Error al iniciar sesion.</Alert>}
       </form>
+
+      <Fab
+        size="medium"
+        aria-label="add"
+        sx={{ position: "absolute", bottom: 30, right: 30 }}
+        onClick={toggleMode}
+      >
+        {mode === 'light' ? <MoonIcon /> :  <SunIcon />}
+
+      </Fab>
     </div>
-  )
+  );
 }
