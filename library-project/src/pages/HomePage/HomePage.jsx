@@ -1,29 +1,30 @@
-import { useContext, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useFetch } from '../../hook/useFetch';
 import { URL_API_BOOKS } from '../../utils/constants';
 import { useState } from 'react';
 import { Cover } from '../../components/Cover/Cover';
 import Lottie from 'lottie-react';
-import './HomePage.css';
 import loadingAnimation from '../../assets/animations/loading2.json'
-import { NavBar } from '../../components/NavBar';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import { ModeContext } from '../../context/ModeContext/ModeContext'
 import { Helmet } from 'react-helmet-async';
+import { MainLayout } from '../../layouts/MainLayout';
+import './HomePage.css';
+import { Grid } from '@mui/material';
+import { Pagination } from '../../components/Pagation/Pagination';
+import { PAGINATION_ACTIONS, paginationReducer } from '../../utils/reducers/paginationReducer';
 
 export const HomePage = () => {
   const { data, loading, req } = useFetch();
   const [ books, setBooks ] = useState([]);
+  const [ pagination, dispatch ] = useReducer(paginationReducer, { page: 0, rowsPerPage: 10 });
   const navigate = useNavigate();
-  const { toggleMode } = useContext(ModeContext);
 
   useEffect(()=> {
     req({ 
-      URL: URL_API_BOOKS,
+      URL: `${URL_API_BOOKS}?limit=${pagination.rowsPerPage}&page=${pagination.page + 1}`,
       headers: {}
     });
-  }, []);
+  }, [pagination]);
 
   useEffect(()=> {
     if(data) {
@@ -41,29 +42,43 @@ export const HomePage = () => {
   }, [data]);
 
   return (
-    <>
+    <MainLayout>
       {loading ? (
-        <Lottie animationData={loadingAnimation} />
+        <Grid container justifyContent='center' alignItems='center'
+          sx={{ minHeight: '90vh' }}>
+          <Lottie animationData={loadingAnimation} />
+        </Grid>
       ) : (
         <>
           <Helmet>
             <title>Library | Home</title>
           </Helmet>
-          <Button onClick={toggleMode}>cambiar modo</Button>
-          <NavBar />
-          <div className="book-list">
-            {books.map((book, index) => {
-              return (
-                <Cover
-                  key={index}
-                  info={book}
-                  onBookClick={(id) => navigate(`/book/${id}`)}
-                />
-              );
-            })}
-          </div>
+          <Grid container justifyContent='center'>
+            <Grid display='grid' gridTemplateColumns="repeat(5, 1fr)" gap={2}>
+              {books.map((book, index) => {
+                return (
+                  <Cover
+                    key={index}
+                    info={book}
+                    onBookClick={(id) => navigate(`/book/${id}`)}
+                  />
+                );
+              })}
+            </Grid>
+          </Grid>
+          <Pagination 
+            page={pagination.page}
+            count={data.numFound}
+            rowsPerPage={pagination.rowsPerPage}
+            changePage={(page)=>{ 
+              dispatch({ type: PAGINATION_ACTIONS.CHANGE_PAGE, payload: page })
+            }}
+            changeRowsPerPage={(rowsPerPage)=>{
+              dispatch({ type: PAGINATION_ACTIONS.CHANGE_ROWS_PER_PAGE, payload: rowsPerPage })
+            }}
+          />
         </>
       )}
-    </>
+    </MainLayout>
   );
 }

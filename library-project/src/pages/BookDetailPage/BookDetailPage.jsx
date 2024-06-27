@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { NavBar } from '../../components/NavBar';
 import { useFetch } from '../../hook/useFetch';
 import { useEffect } from 'react';
+import { MainLayout } from '../../layouts/MainLayout';
 
 export const BookDetailPage = () => {
   const { id } = useParams();
@@ -14,11 +15,9 @@ export const BookDetailPage = () => {
     })
   }, []);
 
-
   return (
-    <>
-      <NavBar />
+    <MainLayout>
       <div>{id}</div>
-    </>
+    </MainLayout>
   )
 }

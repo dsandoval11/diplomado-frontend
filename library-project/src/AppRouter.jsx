@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { BookDetailPage } from './pages/BookDetailPage';
 import { SignupPage } from './pages/SignupPage/SignupPage';
 import { ROUTES } from './utils/routes';
+// import { ChatPage } from './pages/ChatPage';
 
 const PublicRoutes = ({ children }) => {
   const isLogged = localStorage.getItem('jwt');
@@ -31,6 +32,7 @@ export const AppRouter = () => {
         <PrivateRoute>
           <Route path={ROUTES.HOME} element={<HomePage />} />
           <Route path={ROUTES.DETAIL} element={<BookDetailPage />} />
+          <Route path={ROUTES.CHAT} element={<></>} />
         </PrivateRoute>
       }></Route>
     </Routes>
