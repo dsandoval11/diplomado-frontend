@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { BookDetailPage } from './pages/BookDetailPage';
 import { SignupPage } from './pages/SignupPage/SignupPage';
 import { ROUTES } from './utils/routes';
+import { MapPage } from './pages/MapPage';
 // import { ChatPage } from './pages/ChatPage';
 
 const PublicRoutes = ({ children }) => {
@@ -33,6 +34,7 @@ export const AppRouter = () => {
           <Route path={ROUTES.HOME} element={<HomePage />} />
           <Route path={ROUTES.DETAIL} element={<BookDetailPage />} />
           <Route path={ROUTES.CHAT} element={<></>} />
+          <Route path={ROUTES.MAP} element={<MapPage />} />
         </PrivateRoute>
       }></Route>
     </Routes>
